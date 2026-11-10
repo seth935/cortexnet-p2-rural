@@ -1,0 +1,61 @@
+{
+  "$schema": "https://weightsofgiants.com/schema/model-v1.json",
+  "schema_version": "1.0",
+  "name": "CortexNet-P2-Rural",
+  "version": "3.0.0",
+  "source_type": "registry_fork",
+  "parent_lineage": [
+    "registry_fork",
+    "sub02cortexnetobb1w0000000000002"
+  ],
+  "upstream_repo": "https://github.com/seth935/cortexnet-obb-1w",
+  "license": "AGPL-3.0",
+  "target_hardware": "la-frite-1gb",
+  "runtime": "onnxruntime",
+  "threads": 2,
+  "runtime_config": {
+    "engine": "onnxruntime",
+    "threads": 2,
+    "execution_mode": "sequential"
+  },
+  "domains": ["indoor", "urban", "rural"],
+  "frame_policy": {
+    "input_size": [352, 352],
+    "resize": "letterbox",
+    "skip": 0
+  },
+  "detector": {
+    "model_path": "models/detector_int8.onnx",
+    "input_size": [352, 352],
+    "conf_threshold": 0.32,
+    "iou_threshold": 0.60,
+    "max_detections": 64
+  },
+  "tracker": {
+    "algo": "bytetrack-lite",
+    "track_thresh": 0.32,
+    "track_buffer": 30,
+    "match_thresh": 0.82,
+    "temporal_ema_alpha": 0.72
+  },
+  "stages": [
+    {
+      "type": "detector",
+      "model": "models/detector_int8.onnx",
+      "input_size": [352, 352],
+      "conf_threshold": 0.32,
+      "iou_threshold": 0.60,
+      "max_detections": 64
+    },
+    {
+      "type": "tracker",
+      "algo": "bytetrack-lite",
+      "params": {
+        "track_thresh": 0.32,
+        "track_buffer": 30,
+        "match_thresh": 0.82,
+        "temporal_ema_alpha": 0.72
+      }
+    }
+  ]
+}
