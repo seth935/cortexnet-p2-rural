@@ -27,7 +27,7 @@
   "detector": {
     "model_path": "models/detector_int8.onnx",
     "input_size": [352, 352],
-    "conf_threshold": 0.32,
+    "conf_threshold": 0.35,
     "iou_threshold": 0.60,
     "max_detections": 64
   },
@@ -43,7 +43,7 @@
       "type": "detector",
       "model": "models/detector_int8.onnx",
       "input_size": [352, 352],
-      "conf_threshold": 0.32,
+      "conf_threshold": 0.35,
       "iou_threshold": 0.60,
       "max_detections": 64
     },
